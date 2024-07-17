@@ -23,7 +23,7 @@ public class AccountController {
     //Test String GET Method
     @GetMapping("/teststring")
     public String demo(){
-        return "I am working fine";
+        return "I am working fine, Ba-Bye";
     }
 
     //Test path variable returning Method
