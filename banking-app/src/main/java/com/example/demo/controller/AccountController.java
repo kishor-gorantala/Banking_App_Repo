@@ -20,18 +20,23 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    //Test String GET Method
+    //String returning Method
     @GetMapping("/teststring")
     public String demo(){
         return "I am working fine, Ba-Bye";
     }
 
-    //Test path variable returning Method
+    //path variable returning Method
     @GetMapping("/returnname/{name}")
     public String demo1(@PathVariable String name){
         return "My name is " + name;
     }
 
+    //RequestParam returning Method
+    @GetMapping("/Paramtesting")
+    public String demo2(@RequestParam String param){
+        return "Parameter is " + param;
+    }
 
     //Adding account REST API
     @PostMapping("/creation")
