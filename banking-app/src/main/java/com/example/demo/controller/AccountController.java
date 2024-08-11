@@ -2,11 +2,14 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.AccountDto;
 import com.example.demo.entity.Account;
+import com.example.demo.exceptionHandler.NoAccountWithNameException;
 import com.example.demo.service.AccountService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +44,9 @@ public class AccountController {
     //Adding account REST API
     @PostMapping("/creation")
     public ResponseEntity<AccountDto> addAccount(@RequestBody AccountDto accountDto) {
-        return new ResponseEntity<>(accountService.createAccount(accountDto), HttpStatus.CREATED);
+        AccountDto accountDto1 = accountService.createAccount(accountDto);
+        URI url = ServletUriComponentsBuilder.fromUriString("http://localhost:8080/api/accounts").path("/{id}").buildAndExpand(accountDto1.getId()).toUri();
+        return ResponseEntity.created(url).build();
     }
 
     //Get account by ID REST API
@@ -56,7 +61,8 @@ public class AccountController {
     public ResponseEntity<AccountDto> getAccountByName(@PathVariable String name) {
         AccountDto accountDto = accountService.getAccountByName(name);
         return ResponseEntity.ok(accountDto);
-    }
+        }
+
 
     //Deposit Money to Account
     @PutMapping("/deposit/{id}")
