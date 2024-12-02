@@ -3,12 +3,12 @@ package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 
-@Getter
-@Setter
+@Data
 @Table(name="accounts")
 @Entity
 @AllArgsConstructor

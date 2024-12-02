@@ -1,11 +1,13 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.AccountDto;
-import com.example.demo.entity.Account;
-import com.example.demo.exceptionHandler.NoAccountWithNameException;
 import com.example.demo.service.AccountService;
+import jakarta.servlet.http.HttpServletRequest;
+import org.apache.catalina.filters.ExpiresFilter;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -25,8 +27,13 @@ public class AccountController {
 
     //String returning Method
     @GetMapping("/teststring")
-    public String demo(){
-        return "I am working fine, Ba-Bye";
+    public ResponseEntity<String> demo(HttpServletRequest request){
+        return new ResponseEntity("The session ID is "+request.getSession().getId(), HttpStatus.OK);
+    }
+
+    @GetMapping("/csrf_token")
+    public CsrfToken csrftoken(HttpServletRequest request){
+        return (CsrfToken) request.getAttribute("_csrf");
     }
 
     //path variable returning Method
@@ -41,7 +48,7 @@ public class AccountController {
         return "Parameter is " + param;
     }
 
-    //Adding account REST API
+    //Creating account REST API
     @PostMapping("/creation")
     public ResponseEntity<AccountDto> addAccount(@RequestBody AccountDto accountDto) {
         AccountDto accountDto1 = accountService.createAccount(accountDto);

@@ -2,15 +2,12 @@ package com.example.demo.service.Implementation;
 
 import com.example.demo.dto.AccountDto;
 import com.example.demo.entity.Account;
-import com.example.demo.exceptionHandler.NoAccountWithNameException;
 import com.example.demo.mapper.AccountMapper;
 import com.example.demo.repository.AccountRepository;
 import com.example.demo.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,12 +39,12 @@ public class AccountServiceImplementor implements AccountService {
     @Override
     public AccountDto getAccountByName(String name) {
         Account account = accountRepository.findByName(name);
-        if(account!=null){
+       // if(account!=null){
             return AccountMapper.mapToAccountDto(account);
-        }
-        else{
-            throw new NoAccountWithNameException("No Account found with the name " + name);
-        }
+       // }
+        //else{
+          //  throw new NoAccountWithNameException("No Account found with the name " + name);
+        //}
 
     }
 
