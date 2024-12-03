@@ -31,11 +31,6 @@ public class AccountController {
         return new ResponseEntity("The session ID is "+request.getSession().getId(), HttpStatus.OK);
     }
 
-    @GetMapping("/csrf_token")
-    public CsrfToken csrftoken(HttpServletRequest request){
-        return (CsrfToken) request.getAttribute("_csrf");
-    }
-
     //path variable returning Method
     @GetMapping("/returnname/{name}")
     public String demo1(@PathVariable String name){
@@ -46,6 +41,11 @@ public class AccountController {
     @GetMapping("/Paramtesting")
     public String demo2(@RequestParam String param){
         return "Parameter is " + param;
+    }
+
+    @GetMapping("/csrf_token")
+    public CsrfToken csrftoken(HttpServletRequest request){
+        return (CsrfToken) request.getAttribute("_csrf");
     }
 
     //Creating account REST API
